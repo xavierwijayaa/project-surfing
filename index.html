@@ -174,8 +174,10 @@
         }
 
         .hero-section {
-        background-image: url(bgbgbg.jpg); 
-        position: relative;
+        background-image: url(bghero768real.jpg); 
+        background-size: contain;
+    background-position: center 25px;
+
       }
 
       }
@@ -578,6 +580,39 @@
         }
         prevScrollpos = currentScrollPos;
       };
+    </script>
+    <script>
+      const mediaQuery = window.matchMedia("(max-width: 768px)");
+
+function handleScrollBehavior(mediaQuery) {
+  if (mediaQuery.matches) {
+    let prevScrollpos = window.pageYOffset;
+    const navbar = document.querySelector(".navbar");
+
+    window.onscroll = function () {
+      let currentScrollPos = window.pageYOffset;
+
+      if (currentScrollPos < 100) {
+        navbar.style.top = "0";
+      } else if (prevScrollpos > currentScrollPos) {
+        navbar.style.top = "0";
+      } else {
+        navbar.style.top = "-330px";
+      }
+
+      prevScrollpos = currentScrollPos;
+    };
+  } else {
+    // Optional: reset scroll behavior saat di desktop
+    window.onscroll = null;
+  }
+}
+
+// Jalankan pertama kali
+handleScrollBehavior(mediaQuery);
+
+// Dengarkan perubahan viewport
+mediaQuery.addEventListener("change", handleScrollBehavior);
     </script>
   </body>
 </html>
