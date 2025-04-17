@@ -33,6 +33,7 @@
         color: white;
         position: relative;
         margin-top: 125px;
+
       }
 
       .hero-section h1 {
@@ -359,7 +360,19 @@
       }
 
       .navbar {
-        transition: top 0.5s ease-in-out;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 999;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .hidden-navbar {
+        transform: translateY(-100%);
+      }
+
+      .show-navbar {
+        transform: translateY(0);
       }
 
       .thenavbarlogo {
@@ -422,7 +435,7 @@
     <!-- Navbar -->
     <nav
       style="background-color: #fceec2"
-      class="navbar navbar-expand-lg navbar-light border-bottom fixed-top py-0"
+      class="navbar hidden-navbar navbar-expand-lg navbar-light border-bottom fixed-top py-0"
     >
       <div
         data-aos="fade-right"
@@ -628,18 +641,23 @@
     </script>
     <script>
       let prevScrollpos = window.pageYOffset;
-      const navbar = document.querySelector(".navbar");
+const navbar = document.querySelector(".navbar");
 
-      window.onscroll = function () {
-        let currentScrollPos = window.pageYOffset;
+window.addEventListener("scroll", function () {
+  let currentScrollPos = window.pageYOffset;
 
-        if (prevScrollpos > currentScrollPos) {
-          navbar.style.top = "0";
-        } else {
-          navbar.style.top = "-130px";
-        }
-        prevScrollpos = currentScrollPos;
-      };
+  if (currentScrollPos < 100 || prevScrollpos > currentScrollPos) {
+    
+    navbar.classList.remove("hidden-navbar");
+    navbar.classList.add("show-navbar");
+  } else {
+    
+    navbar.classList.remove("show-navbar");
+    navbar.classList.add("hidden-navbar");
+  }
+
+  prevScrollpos = currentScrollPos;
+});
     </script>
   </body>
 </html>
