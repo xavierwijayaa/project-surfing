@@ -21,10 +21,11 @@
       }
 
       .hero-section {
-        min-height: 100vh;
+        min-height: 115vh;
         background-image: url(bgherorev.jpg); 
-        background-size: cover;
+        background-size: contain;
         background-repeat: no-repeat;
+        background-position: center -40px;
       }
 
       .hero-section .container {
@@ -102,6 +103,19 @@
         opacity: 0.7;
       }
 
+      @media (min-width: 769px) {
+        .navbar-decor-desktop {
+          display: block !important;
+        position: absolute;
+        top: -29px;
+        left: 500px;
+        width: 500px;
+        height: auto;
+        z-index: 0; /* pastikan di belakang elemen navbar */
+        pointer-events: none; /* biar gak ganggu klik menu */
+      }
+      }
+
       @media (max-width: 768px) {
         .caption-srengenge1 {
           padding: 2rem 0;
@@ -177,9 +191,54 @@
         background-image: url(bghero768real.jpg); 
         background-size: contain;
     background-position: center 25px;
-
       }
 
+      .navbar-collapse {
+    transition-property: opacity, transform, height, visibility !important;
+    transition-duration: 0.4s !important;
+    transition-timing-function: ease-out !important;
+    background-color: #fcdd87; /* atau warna merah kamu */
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .navbar-collapse .me-0 {
+    width: 100% !important;
+  }
+
+  .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .navbar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+  }
+  
+  .navbar-collapse.closing {
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+  }
+  
+  /* Override Bootstrap's default transition */
+  .collapsing {
+    transition-duration: 0.4s !important;
+  }
+
+  .navbar-decor-phone{
+        display: block !important;
+        position: absolute;
+        top: 1px;
+        left: 0px;
+        width: 470px;
+        height: auto;
+        z-index: 0; /* pastikan di belakang elemen navbar */
+        pointer-events: none; /* biar gak ganggu klik menu */
+        box-shadow: 0 4px 8px rgba(150, 100, 50, 0.15);
+      }
       }
       
 
@@ -325,7 +384,11 @@
         padding: 0;
       }
 
-      .navbar-decor {
+      .navbar-aksesoris{
+        display: none;
+      }
+
+      .navbar-decor-desktop {
         position: absolute;
         top: -29px;
         left: 500px;
@@ -361,9 +424,11 @@
       }
 
       .hero-section .container {
-  padding-top: 150px;
-  padding-bottom: 100px;
-}
+        padding-top: 150px;
+        padding-bottom: 100px;
+      }
+      
+
     </style>
   </head>
   <body>
@@ -380,9 +445,10 @@
       >
         <img
           src="aksesorisnavbar.png"
-          class="navbar-decor"
-          alt="aksesorisnavbar"
+          class="navbar-aksesoris navbar-decor-desktop"
+          alt="aksesorisnavbardesktop"
         />
+        <img src="navbar768real.png" class="navbar-aksesoris navbar-decor-phone" alt="aksesorisp">
         <a class="navbar-brand d-flex align-items-center" href="#home">
           <div class="navbarlogo">
             <img
@@ -597,7 +663,7 @@ function handleScrollBehavior(mediaQuery) {
       } else if (prevScrollpos > currentScrollPos) {
         navbar.style.top = "0";
       } else {
-        navbar.style.top = "-330px";
+        navbar.style.top = "-180px";
       }
 
       prevScrollpos = currentScrollPos;
@@ -613,6 +679,44 @@ handleScrollBehavior(mediaQuery);
 
 // Dengarkan perubahan viewport
 mediaQuery.addEventListener("change", handleScrollBehavior);
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+  let scrollTimer;
+  
+  window.addEventListener('scroll', function() {
+    if (window.innerWidth <= 768) {
+      clearTimeout(scrollTimer);
+      
+      // Tunggu sebentar sebelum memulai penutupan
+      scrollTimer = setTimeout(function() {
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        
+        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+          // Tambahkan class kustom dulu untuk memulai fade out
+          navbarCollapse.classList.add('closing');
+          
+          // Beri waktu untuk animasi fade out dimulai
+          setTimeout(function() {
+            // Setelah fade dimulai, gunakan jQuery untuk smooth collapse
+            // (Jika menggunakan jQuery + Bootstrap)
+            if (typeof $ !== 'undefined') {
+              $(navbarCollapse).collapse('hide');
+            } else {
+              // Fallback untuk non-jQuery
+              navbarCollapse.classList.remove('show');
+            }
+            
+            // Hapus class closing setelah transisi lengkap
+            setTimeout(function() {
+              navbarCollapse.classList.remove('closing');
+            }, 400);
+          }, 50);
+        }
+      }, 100);
+    }
+  });
+});
     </script>
   </body>
 </html>
