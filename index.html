@@ -188,7 +188,7 @@
         }
 
         .hero-section {
-        background-image: url(bghero768real.jpg); 
+        background-image: url(bgherohape.png); 
         background-size: contain;
     background-position: center 25px;
       }
@@ -197,7 +197,7 @@
     transition-property: opacity, transform, height, visibility !important;
     transition-duration: 0.4s !important;
     transition-timing-function: ease-out !important;
-    background-color: #fcdd87; /* atau warna merah kamu */
+    background-color: #fcdd87; 
     width: 100%;
     padding: 1rem;
   }
@@ -238,6 +238,13 @@
         z-index: 0; /* pastikan di belakang elemen navbar */
         pointer-events: none; /* biar gak ganggu klik menu */
         box-shadow: 0 4px 8px rgba(150, 100, 50, 0.15);
+      }
+
+      .hero-text{
+        display: block !important;
+        width: 55vh;
+        position: absolute;
+        top: -150px;
       }
       }
       
@@ -517,6 +524,7 @@
           data-aos-duration="2000"
           class="d-flex justify-content-center gap-3 mt-4"
         >
+        <img class="hero-text" src="bghapehero.png" alt="text" style="display: none;">
           <button class="button">
             <span class="button-content">
               <a href="#" class="text-decoration-none text-white fw-bold"
